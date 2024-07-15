@@ -28,6 +28,7 @@
   width: 21px;
   height: 18px;
   border: none;
+  cursor: pointer;
 }
 
 .card__title {
@@ -41,4 +42,9 @@
   margin: 0;
   line-height: 29.05px;
   color: rgba(0, 0, 0, 1);
+}
+
+.card__like-button:hover {
+  opacity: 60%;
+  transition: 0.25s;
 }
