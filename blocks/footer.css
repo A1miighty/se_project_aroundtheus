@@ -1,8 +1,22 @@
 .footer__copyright {
   font-family: "Inter", Arial, sans-serif;
-  height: 18px;
+  line-height: 21.78px;
   margin: 67px 0 60px;
   font-size: 18px;
-  max-width: 318px;
   color: rgba(84, 84, 84, 1);
+}
+
+@media screen and (max-width: 775px) {
+  .profile__add-button {
+    margin-left: 25px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .footer__copyright {
+    margin: 48px 0 36px;
+    font-size: 14px;
+    max-width: 282px;
+    line-height: 16.94px;
+  }
 }

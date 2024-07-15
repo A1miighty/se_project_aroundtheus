@@ -4,16 +4,6 @@
   border-radius: 10px;
 }
 
-.card__list {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, 282px);
-  grid-gap: 20px 17px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
 .card__image {
   width: 282px;
   height: 282px;
@@ -47,8 +37,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-weight: 900px;
-  margin-top: 30px;
-  line-height: 30px;
+  font-weight: 900;
+  margin: 0;
+  line-height: 29.05px;
   color: rgba(0, 0, 0, 1);
 }
