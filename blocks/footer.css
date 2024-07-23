@@ -6,12 +6,6 @@
   color: rgba(84, 84, 84, 1);
 }
 
-@media screen and (max-width: 775px) {
-  .profile__add-button {
-    margin-left: 25px;
-  }
-}
-
 @media screen and (max-width: 620px) {
   .footer__copyright {
     margin: 48px 0 36px;
