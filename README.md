@@ -2,20 +2,25 @@
 
 ### Overview  
 
-* Intro  
-* Figma  
-* Images  
-  
-**Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
+This project involves creating a responsive webpage based on a Figma design that includes layouts for both mobile and desktop screens. The design specifies different layouts for various screen widths, ensuring a seamless and user-friendly experience across all devices. This project uses HTML, CSS, and Figma for its completetion.
+
+1) Project Description
+Design Source: Figma
+Supported Screen Widths:
+-Mobile: 320px
+-Tablet: Follows desktop layout with adjustments
+-Desktop: 1280px
+
+2) Features
+Responsive Design: The webpage adapts to different screen widths without horizontal scrolling.
+Content Area Width: Changes dynamically based on browser window width.
+Minimum Width (320px): One card per row.
+Maximum Width (1280px): Three cards per row, with 880px for content and 200px of empty space on each side.
+Tablet Width: Similar to desktop layout but with two cards per row.
+Gallery View: Provides a visual understanding of the end result. 
   
 **Figma**  
   
 * [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
-  
-**Images**  
-  
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+
+Google Drive: https://drive.google.com/file/d/1J7f8PiSIlZyHX_IFkojdYbTHKl-1Nbjg/view?usp=drive_link
