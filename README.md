@@ -23,5 +23,5 @@ Gallery View: Provides a visual understanding of the end result.
   
 * [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
 
-Google Drive: [https://drive.google.com/file/d/1J7f8PiSIlZyHX_IFkojdYbTHKl-1Nbjg/view?usp=drive_link](https://drive.google.com/file/d/1J7f8PiSIlZyHX_IFkojdYbTHKl-1Nbjg/view?usp=drive_link)
+Google Drive: https://drive.google.com/file/d/14bwfl7YLOKS8yBVq7xuw5Hly6oufAAHp/view?usp=drive_link
 Github: https://a1miighty.github.io/se_project_aroundtheus/
