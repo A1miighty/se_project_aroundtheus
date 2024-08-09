@@ -92,6 +92,7 @@
     flex-direction: column;
     justify-content: center;
     justify-items: center;
+    margin-top: 42px;
   }
   .profile__info {
     display: flex;
