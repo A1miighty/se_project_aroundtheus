@@ -6,14 +6,14 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  display: flex;
-  align-items: center;
+  display: none;
+
   padding: 0 19px 0;
 }
 
-/* .model_opened {
+.model__opened {
   display: flex;
-} */
+}
 
 .model__container {
   background-color: #fff;
@@ -84,6 +84,10 @@
   font-size: 18px;
   font-family: "Inter", Arial, sans-serif;
   font-weight: 400;
+}
+
+.model__button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 620px) {

@@ -27,10 +27,18 @@
           />
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
-            <button class="profile__edit-button" type="button"></button>
+            <button
+              class="profile__edit-button"
+              id="profile-edit-button"
+              type="button"
+            ></button>
             <p class="profile__description">Explorer</p>
           </div>
-          <button class="profile__add-button" type="button"></button>
+          <button
+            class="profile__add-button"
+            id="profile-add-button"
+            type="button"
+          ></button>
         </section>
         <section class="cards page__section">
           <ul class="cards__list">
@@ -107,14 +115,14 @@
         <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
       </footer>
     </div>
-    <div class="model">
+    <div class="model" id="profile-edit-model">
       <div class="model__container">
-        <button class="model__close"></button>
+        <button class="model__close" id="profile-close-btn"></button>
         <p class="model__heading">Edit Profile</p>
         <form class="model__form">
           <input type="text" class="model__text" name="text" />
-          <input type="text" class="model__description" name="descript`ion" />
-          <button class="model__button">Save</button>
+          <input type="text" class="model__description" name="description" />
+          <button class="model__button" id="model-save-btn">Save</button>
         </form>
       </div>
     </div>
