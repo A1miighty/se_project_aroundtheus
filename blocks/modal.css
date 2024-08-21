@@ -1,4 +1,4 @@
-.model {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,11 +11,11 @@
   padding: 0 19px 0;
 }
 
-.model__opened {
+.modal_opened {
   display: flex;
 }
 
-.model__container {
+.modal__container {
   background-color: #fff;
   margin: auto;
   padding: 36px;
@@ -24,7 +24,7 @@
   flex-direction: column;
 }
 
-.model__close {
+.modal__close {
   background-image: url("../images/Close\ Icon.svg");
   background-color: transparent;
   cursor: pointer;
@@ -38,7 +38,7 @@
   background-size: contain;
 }
 
-.model__heading {
+.modal__heading {
   color: #000;
   font-family: "Inter", Arial, sans-serif;
   font-weight: 900;
@@ -47,36 +47,31 @@
   margin-top: 0;
 }
 
-.model__form {
+.modal__form {
   display: flex;
   flex-direction: column;
   margin-top: 54px;
   width: 358px;
 }
 
-.model__text {
+.modal__input {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  height: 27px;
+  line-height: 16.94px;
+  font-size: 14px;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+}
+.modal__input:first-of-type {
   margin-bottom: 29.74px;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  height: 27px;
-  line-height: 16.94px;
-  font-size: 14px;
-  font-family: "Inter", Arial, sans-serif;
-  font-weight: 400;
 }
 
-.model__description {
+.modal__input:last-of-type {
   margin-bottom: 48px;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  height: 27px;
-  line-height: 16.94px;
-  font-size: 14px;
-  font-family: "Inter", Arial, sans-serif;
-  font-weight: 400;
 }
 
-.model__button {
+.modal__button {
   background-color: #000;
   color: #fff;
   border-radius: 2px;
@@ -86,38 +81,38 @@
   font-weight: 400;
 }
 
-.model__button:hover {
+.modal__button:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 620px) {
-  .model__heading {
+  .modal__heading {
     font-size: 18px;
     margin-bottom: 75px;
     margin-top: 0;
   }
 
-  .model__container {
+  .modal__container {
     padding: 25px 22px;
     margin-top: 143px;
   }
 
-  .model__form {
+  .modal__form {
     margin-top: 0;
     width: 238px;
   }
 
-  .model__close {
+  .modal__close {
     top: -40px;
     right: 5px;
     width: 20px;
     height: 20px;
   }
-  .model__text {
+  .modal__input:first-of-type {
     margin-bottom: 30px;
   }
 
-  .model__description {
+  .modal__input:last-of-type {
     margin-bottom: 45px;
   }
 }
