@@ -25,14 +25,49 @@ const initialCards = [
   },
 ];
 
+/*---------------------------------------------------------------------- 
+"Elements"
+---------------------------------------------------------------------- */
+
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileEditModel = document.querySelector("#profile-edit-model");
 const profileCloseBtn = document.querySelector("#profile-close-btn");
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+const profileTitleInput = document.querySelector("#profile-title-input");
+const profileDescriptionInput = document.querySelector(
+  "#profile-description-input"
+);
+const profileEditForm = document.querySelector(".model__form");
+
+/*---------------------------------------------------------------------- 
+"Functions"
+---------------------------------------------------------------------- */
+
+function closePopup() {
+  profileEditModel.classList.remove("model__opened");
+}
+
+/*---------------------------------------------------------------------- 
+"Event Handlers" 
+---------------------------------------------------------------------- */
+function handleProfileEditSubmit(e) {
+  e.preventDefault();
+  profileTitle.textContent = profileTitleInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
+  closePopup();
+}
+
+/*---------------------------------------------------------------------- 
+"Event Listeners" 
+---------------------------------------------------------------------- */
 
 profileEditBtn.addEventListener("click", () => {
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
   profileEditModel.classList.add("model__opened");
 });
 
-profileCloseBtn.addEventListener("click", () => {
-  profileEditModel.classList.remove("model__opened");
-});
+profileCloseBtn.addEventListener("click", closePopup);
+
+profileEditForm.addEventListener("submit", handleProfileEditSubmit);
