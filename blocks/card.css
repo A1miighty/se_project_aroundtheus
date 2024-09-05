@@ -31,6 +31,10 @@
   cursor: pointer;
 }
 
+.card__like-button_active {
+  background-image: url("../images/like-active.svg");
+}
+
 .card__title {
   max-width: 220px;
   font-size: 24px;
@@ -46,5 +50,21 @@
 
 .card__like-button:hover {
   opacity: 50%;
+  transition: 0.25s;
+}
+
+.card__delete-btn {
+  background: transparent url(../images/Trash.svg) center;
+  position: absolute;
+  border: none;
+  width: 18px;
+  height: 19.3px;
+  margin: 18px 15px auto;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.card__delete-btn:hover {
+  opacity: 60%;
   transition: 0.25s;
 }
