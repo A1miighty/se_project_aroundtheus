@@ -53,7 +53,7 @@ const profileDescriptionInput = document.querySelector(
 );
 const cardImageEl = document.querySelectorAll(".card__image");
 
-const previewCardImage = document.querySelectorAll(".modal__image");
+const previewCardImage = document.querySelector(".modal__image");
 const previewDescription = document.querySelector(".modal__description");
 
 /*---------------------------------------------------------------------- 
@@ -77,7 +77,7 @@ function getCardElement(cardData) {
   //open modal with previewModal
 
   cardImageEl.addEventListener("click", () => {
-    previewModal.classList.add("modal__opened");
+    previewModal.classList.add("modal_opened");
   });
 
   likeButton.addEventListener("click", () => {
@@ -90,6 +90,8 @@ function getCardElement(cardData) {
 
   cardImageEl.addEventListener("click", () => {
     previewModal.classList.add("modal_opened");
+    previewCardImage.src = cardImageEl.src;
+    previewDescription.textContent = cardTitleEl.textContent;
   });
 
   cardImageEl.src = cardData.link;

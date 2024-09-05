@@ -6,13 +6,17 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  display: none;
-
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s linear 0s, opacity 0.5s linear;
   padding: 0 19px 0;
+  display: flex;
 }
 
 .modal_opened {
   display: flex;
+  visibility: visible;
+  opacity: 1;
 }
 
 .modal__container {
@@ -23,6 +27,12 @@
   position: relative;
   flex-direction: column;
   max-width: 100%;
+}
+
+.modal__preview {
+  background: none;
+  margin: auto;
+  position: relative;
 }
 
 .modal__close {
@@ -86,6 +96,11 @@
   opacity: 0.8;
 }
 
+.modal__image {
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
 @media screen and (max-width: 620px) {
   .modal__heading {
     font-size: 18px;
@@ -96,6 +111,7 @@
   .modal__container {
     padding: 25px 22px;
     margin-top: 143px;
+    max-width: 100%;
   }
 
   .modal__form {
