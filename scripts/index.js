@@ -103,7 +103,7 @@ function getCardElement(cardData) {
 
 function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
-  wrapper.append(cardElement);
+  wrapper.prepend(cardElement);
 }
 /*---------------------------------------------------------------------- 
                               "Event Handlers" 
