@@ -51,7 +51,6 @@ const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-const cardImageEl = document.querySelectorAll(".card__image"); // card images diappear when deleted
 
 const previewCardImage = document.querySelector(".modal__image");
 const previewDescription = document.querySelector(".modal__description");
