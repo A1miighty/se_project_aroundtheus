@@ -135,15 +135,9 @@ const cardsWrap = document.querySelector(".cards__list");
                                 "Event Listeners" 
 ---------------------------------------------------------------------- */
 
-profileEditBtn.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-  editModal.classList.add("modal_opened");
-});
+profileEditBtn.addEventListener("click", () => openPopup(editModal));
 
-profileAddbtn.addEventListener("click", () => {
-  addCardModal.classList.add("modal_opened");
-});
+profileAddbtn.addEventListener("click", () => openPopup(addCardModal));
 
 profileModalCloseBtn.addEventListener("click", () => closePopup(editModal));
 
