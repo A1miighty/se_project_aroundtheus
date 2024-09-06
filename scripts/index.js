@@ -87,7 +87,7 @@ function getCardElement(cardData) {
   });
 
   cardImageEl.addEventListener("click", () => {
-    previewModal.classList.add("modal_opened");
+    openPopup(previewModal);
     previewCardImage.src = cardImageEl.src;
     previewCardImage.alt = cardImageEl.alt;
     previewDescription.textContent = cardTitleEl.textContent;
@@ -135,7 +135,11 @@ const cardsWrap = document.querySelector(".cards__list");
                                 "Event Listeners" 
 ---------------------------------------------------------------------- */
 
-profileEditBtn.addEventListener("click", () => openPopup(editModal));
+profileEditBtn.addEventListener("click", () => {
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+  openPopup(editModal);
+});
 
 profileAddbtn.addEventListener("click", () => openPopup(addCardModal));
 
