@@ -60,10 +60,14 @@ const previewDescription = document.querySelector(".modal__description");
 ---------------------------------------------------------------------- */
 function openPopup(popup) {
   popup.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscKey);
+  popup.addEventListener("click", handleOverlayClick);
 }
 
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscKey);
+  modal.removeEventListener("click", handleOverlayClick);
 }
 
 function getCardElement(cardData) {
@@ -104,6 +108,7 @@ function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
   wrapper.prepend(cardElement);
 }
+
 /*---------------------------------------------------------------------- 
                               "Event Handlers" 
 ---------------------------------------------------------------------- */
@@ -126,6 +131,18 @@ function handleAddCardSubmit(e) {
   e.target.reset();
 }
 
+function handleEscKey(evt) {
+  if (evt.key === "Escape") {
+    const modal = document.querySelector(".modal_opened");
+    closePopup(modal);
+  }
+}
+
+function handleOverlayClick(evt) {
+  if (evt.target.classList.contains("modal_opened")) {
+    closePopup(evt.target);
+  }
+}
 /*----------------------------------------------------------------------
                                 "Wrappers" 
 ---------------------------------------------------------------------- */
