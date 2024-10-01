@@ -1,3 +1,6 @@
+import FormValidator from "../components/formvalidator.js";
+import Card from "../components/Card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -24,6 +27,13 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+const cardSelector = "#card-template";
+
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
 
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -55,6 +65,31 @@ const profileDescriptionInput = document.querySelector(
 const previewCardImage = document.querySelector(".modal__image");
 const previewDescription = document.querySelector(".modal__description");
 
+const validationSettings = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+const settings = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+const editFormValidator = new FormValidator(
+  validationSettings,
+  profileEditForm
+);
+const addFormValidator = new FormValidator(validationSettings, addCardForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 /*---------------------------------------------------------------------- 
                                 "Functions"
 ---------------------------------------------------------------------- */
