@@ -71,6 +71,7 @@
   width: 120px;
   background-position: center;
   margin-right: 24px;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 620px) {
