@@ -1,10 +1,10 @@
 class FormValidator {
-  constructor(settings, formEl) {
-    this._inputSelector = settings.inputSelector;
-    this._submitButtonSelector = settings.submitButtonSelector;
-    this._inactiveButtonClass = settings.inactiveButtonClass;
-    this._inputErrorClass = settings.inputErrorClass;
-    this._errorClass = settings.errorClass;
+  constructor(validationSetting, formEl) {
+    this._inputSelector = validationSetting.inputSelector;
+    this._submitButtonSelector = validationSetting.submitButtonSelector;
+    this._inactiveButtonClass = validationSetting.inactiveButtonClass;
+    this._inputErrorClass = validationSetting.inputErrorClass;
+    this._errorClass = validationSetting.errorClass;
 
     this._formEl = formEl;
   }
@@ -33,12 +33,12 @@ class FormValidator {
     submitButton.disabled = false;
   }
 
-  _toggleButtonState(inputEls, settings, submitButton) {
+  _toggleButtonState(inputEls, validationSetting, submitButton) {
     if (this._hasInvalidInput(inputEls)) {
-      this._enableButton(submitButton, settings);
+      this._enableButton(submitButton, validationSetting);
       return;
     }
-    this._disableButton(submitButton, settings);
+    this._disableButton(submitButton, validationSetting);
   }
 
   _hasInvalidInput(inputList) {
@@ -52,7 +52,7 @@ class FormValidator {
     this._hideInputError(inputEl);
   }
 
-  _setEventListeners(settings) {
+  _setEventListeners(validationSetting) {
     this._inputEls = Array.from(
       this._formEl.querySelectorAll(this._inputSelector)
     );
@@ -60,16 +60,21 @@ class FormValidator {
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
         this._checkInputValidity(inputEl);
-        this._toggleButtonState(this._inputEls, settings, this._submitButton);
+        this._toggleButtonState(
+          this._inputEls,
+          validationSetting,
+          this._submitButton
+        );
       });
     });
   }
 
-  enableValidation(formEl, settings) {
+  // Please explain why these parameters are not needed, any other parameters i tried did not work.
+  enableValidation(formEl, validationSetting) {
     this._formEl.addEventListener("submit", (e) => {
       e.preventDefault();
     });
-    this._setEventListeners(formEl, settings);
+    this._setEventListeners(formEl, validationSetting);
   }
 }
 
