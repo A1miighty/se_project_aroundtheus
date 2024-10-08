@@ -69,12 +69,22 @@ class FormValidator {
     });
   }
 
-  // Please explain why these parameters are not needed, any other parameters i tried did not work.
-  enableValidation(formEl, validationSetting) {
+  enableValidation() {
     this._formEl.addEventListener("submit", (e) => {
       e.preventDefault();
     });
-    this._setEventListeners(formEl, validationSetting);
+    this._setEventListeners();
+  }
+
+  // New resetValidation method
+  resetValidation() {
+    // Disable the submit button initially
+    this._enableButton(this._submitButton);
+
+    // Loop over all input elements and hide any visible errors
+    this._inputEls.forEach((inputEl) => {
+      this._hideInputError(inputEl);
+    });
   }
 }
 

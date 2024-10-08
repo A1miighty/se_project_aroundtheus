@@ -100,6 +100,7 @@ function handleAddCardFormSubmit(e) {
   renderCard({ name, link }, cardListEl);
   closePopup(addCardModal);
   e.target.reset();
+  addFormValidator.resetValidation(); // Reset the validation after submission
 }
 
 function createCard(cardData) {
@@ -107,11 +108,6 @@ function createCard(cardData) {
   const cardElement = new Card(cardData, cardSelector, handlePreviewImage);
   return cardElement.getView();
 }
-
-/*function renderCard(cardData, wrapper) {
-  const card = new Card(cardData, cardSelector, handlePreviewImage);
-  wrapper.prepend(card.getView());
-}*/
 
 function renderCard(cardData, wrapper) {
   const card = createCard(cardData);
@@ -162,7 +158,10 @@ profileEditCloseButton.addEventListener("click", () =>
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
-addNewCardButton.addEventListener("click", () => openModal(addCardModal));
+addNewCardButton.addEventListener("click", () => {
+  addFormValidator.resetValidation(); // Reset the validation
+  openModal(addCardModal);
+});
 
 addCardModalCloseButton.addEventListener("click", () =>
   closePopup(addCardModal)
