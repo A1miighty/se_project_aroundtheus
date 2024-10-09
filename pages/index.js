@@ -100,7 +100,6 @@ function handleAddCardFormSubmit(e) {
   renderCard({ name, link }, cardListEl);
   closePopup(addCardModal);
   e.target.reset();
-  addFormValidator.resetValidation(); // Reset the validation after submission
 }
 
 function createCard(cardData) {
@@ -159,7 +158,6 @@ profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 addNewCardButton.addEventListener("click", () => {
-  addFormValidator.resetValidation(); // Reset the validation
   openModal(addCardModal);
 });
 
