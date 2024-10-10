@@ -78,6 +78,7 @@ const addFormValidator = new FormValidator(validationSettings, addCardForm);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+addFormValidator._disableSubmitButton();
 
 function handlePreviewImage(name, link) {
   modalImageElement.src = link;
