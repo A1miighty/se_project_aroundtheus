@@ -1,4 +1,5 @@
-export const initialCards = [
+// Initial card data
+const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -25,7 +26,8 @@ export const initialCards = [
   },
 ];
 
-export const validationSettings = {
+// Validation settings
+const validationSettings = {
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",
   inactiveButtonClass: "modal__button_disabled",
@@ -33,6 +35,28 @@ export const validationSettings = {
   errorClass: "modal__error_visible",
 };
 
-export const addNewCardButton = document.querySelector(".profile__add-button");
-export const nameInput = document.querySelector("#name-input");
-export const descriptionInput = document.querySelector("#description-input");
+/* Elements */
+const profileEditBtn = document.querySelector("#profile-edit-button");
+const profileTitleInput = document.querySelector("#profile-title-input");
+const profileDescriptionInput = document.querySelector(
+  "#profile-description-input"
+);
+const addNewCardButton = document.querySelector(".profile__add-button");
+const profileEditForm = document.querySelector(
+  "#profile-edit-modal .modal__form"
+);
+const addCardForm = document.querySelector("#add-card-modal .modal__form");
+const avatarEditForm = document.querySelector("#avatar-edit-form");
+const avatarEditBtn = document.querySelector(".profile__edit-avatar");
+export {
+  initialCards,
+  validationSettings,
+  profileEditBtn,
+  profileTitleInput,
+  profileDescriptionInput,
+  addNewCardButton,
+  profileEditForm,
+  addCardForm,
+  avatarEditForm,
+  avatarEditBtn,
+};

@@ -2,16 +2,28 @@
   background-color: black;
   color: white;
 }
+
 .page__content {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
 .page__section {
-  max-width: 920px;
-  width: 100%;
-  position: relative;
+  max-width: 880px;
   margin: 0 auto;
-  padding: 0 20px;
-  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1100px) {
+  .page__section {
+    margin: 0 20px;
+    max-width: calc(100% - 40px);
+  }
+}
+
+@media screen and (max-width: 474px) {
+  .page__section {
+    margin: 0px;
+    max-width: 100%;
+  }
 }
