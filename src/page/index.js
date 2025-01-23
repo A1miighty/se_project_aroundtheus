@@ -201,7 +201,7 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (data) => {
   const originalButtonText = submitButton.textContent;
   submitButton.textContent = "Saving...";
 
-  api
+  return api
     .addCard({
       name: data.title,
       link: data.description,
