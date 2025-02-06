@@ -116,7 +116,7 @@ const deleteCardPopup = new PopupWithConfirm(
   "#delete-card-modal",
   (cardInstance) => {
     return api.deleteCard(cardInstance._id).then(() => {
-      cardInstance.deleteCard(); // Remove the card from the DOM after server confirmation
+      cardInstance._deleteCard(); // Remove the card from the DOM after server confirmation
     });
   }
 );
@@ -136,7 +136,7 @@ function handleImageClick(name, link) {
 // New PopupWithForm instances (userinfo integration change step 3)
 const editProfilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
   // NEW CODE: Change button text to "Saving..."
-  const submitButton = editProfilePopup.form.querySelector(".modal__button");
+  const submitButton = editProfilePopup._form.querySelector(".modal__button");
   const originalButtonText = submitButton.textContent;
   submitButton.textContent = "Saving...";
 
