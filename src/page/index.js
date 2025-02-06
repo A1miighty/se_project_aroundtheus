@@ -116,7 +116,7 @@ const deleteCardPopup = new PopupWithConfirm(
   "#delete-card-modal",
   (cardInstance) => {
     return api.deleteCard(cardInstance._id).then(() => {
-      cardInstance._deleteCard(); // Remove the card from the DOM after server confirmation
+      cardInstance.deleteCard(); // Remove the card from the DOM after server confirmation
     });
   }
 );
@@ -140,7 +140,7 @@ const editProfilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
   const originalButtonText = submitButton.textContent;
   submitButton.textContent = "Saving...";
 
-  api
+  return api
     .setUserInfo({
       name: data.title,
       about: data.description,
@@ -150,12 +150,6 @@ const editProfilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
         name: updatedUserData.name,
         job: updatedUserData.about,
       });
-      // Return a new promise for the delay
-      return new Promise((resolve) => setTimeout(resolve, 1000)); // 1s delay
-    })
-    .then(() => {
-      // Close the popup here, after the delay
-      editProfilePopup.close();
     })
     .catch((err) => {
       console.error("Failed to update user info:", err);
@@ -181,10 +175,10 @@ const avatarEditPopup = new PopupWithForm("#avatar-edit-modal", (data) => {
     .then((updatedUserData) => {
       console.log("Avatar update data:", updatedUserData); // Debug log
       userInfo.setAvatar(updatedUserData.avatar);
-      return new Promise((resolve) => setTimeout(resolve, 1000)); // 1000ms delay
     })
     .then(() => {
       avatarEditPopup.close();
+      avatarEditFormValidator.disableButton();
     })
     .catch((err) => {
       console.error("Failed to update avatar:", err);
@@ -209,7 +203,6 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (data) => {
     .then((newCardData) => {
       const newCard = createCard(newCardData);
       cardSection.addItem(newCard);
-      return new Promise((resolve) => setTimeout(resolve, 1000)); // 1000ms delay
     })
     .then(() => {
       addCardPopup.close();
