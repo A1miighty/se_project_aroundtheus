@@ -1,33 +1,19 @@
 .header {
   margin-top: 45px;
-  box-sizing: border-box;
-  border-bottom-style: solid;
+  min-height: 74px;
+  width: 100%;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
-  border-bottom-width: 1px;
 }
 
-.header__logo {
-  width: 173px;
-  height: 33px;
-  margin-bottom: 40px;
-}
-
-@media screen and (max-width: 970px) {
+@media screen and (max-width: 480px) {
   .header {
-    padding-left: 20px;
-    padding-right: 20px;
-    box-sizing: border-box;
+    margin-top: 28px;
+    min-height: 0px;
+    min-height: 56px;
   }
-  .header__logo {
-    margin-left: auto;
-    margin-bottom: 32px;
+  .header__image {
     width: 126px;
     height: 24px;
-  }
-}
-
-@media screen and (max-width: 321px) {
-  .header__logo {
-    margin-left: 7px;
+    margin-left: 27px;
   }
 }

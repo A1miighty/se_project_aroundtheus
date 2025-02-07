@@ -1,102 +1,262 @@
-import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import "../page/index.css";
+import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import {
   initialCards,
   validationSettings,
+  profileEditBtn,
+  profileTitleInput,
+  profileDescriptionInput,
   addNewCardButton,
-  nameInput,
-  descriptionInput,
+  profileEditForm,
+  addCardForm,
+  avatarEditForm,
+  avatarEditBtn,
 } from "../utils/constants.js";
+import "../page/index.css";
 
-const editFormElement = document.querySelector("#edit-profile-form");
-const addFormElement = document.querySelector("#add-card-form");
-const profileEditBtn = document.querySelector("#profile-edit-button");
-
-// Popups
-
-const imagePopup = new PopupWithImage({
-  popupSelector: "#preview-modal",
-});
-
-const userInfo = new UserInfo({
-  nameSelector: "#profile-title",
-  jobSelector: "#profile-description",
-});
-
-const editProfilePopup = new PopupWithForm({
-  popupSelector: "#edit-modal",
-  handleFormSubmit: (data) => {
-    userInfo.setUserInfo({ name: data.name, description: data.description });
-    editProfilePopup.close();
-    editProfilePopup.resetForm();
-    editFormValidator.disableSubmitButton();
+//new api instance for getting user info
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "df1e5d6b-2034-4fc6-b7d1-5db60e1697a9",
+    "Content-Type": "application/json",
   },
 });
 
-const addCardPopup = new PopupWithForm({
-  popupSelector: "#add-card-modal",
-  handleFormSubmit: ({ name, url }) => {
-    const cardElement = createCard({ name, link: url });
-    cardList.addItem(cardElement);
-    addCardPopup.close();
-    addCardPopup.resetForm();
-    addFormValidator.disableSubmitButton();
-  },
-});
-
-// Card Rendering
-
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const cardElement = createCard(cardData);
-      cardList.addItem(cardElement);
-    },
-  },
-  ".cards__list"
-);
-
-// Card create function
-
-function createCard(cardData) {
-  const card = new Card(cardData, "#card-template", (data) => {
-    imagePopup.open(data);
+// API Fetch user information when the page loads (Step 1)
+api
+  .getUserInfo()
+  .then((userData) => {
+    // Assuming your UserInfo class only handles name and job for now
+    userInfo.setUserInfo({
+      name: userData.name,
+      job: userData.about,
+    });
+    userInfo.setAvatar(userData.avatar);
+  })
+  .catch((err) => {
+    console.error("Failed to fetch user info:", err);
+    // Optionally, show user feedback here
   });
-  return card.getView();
+
+// Fetch cards from the server (Step 2)
+let cardSection;
+
+api
+  .getInitialCards()
+  .then((cardsData) => {
+    cardSection = new Section(
+      {
+        items: cardsData,
+        renderer: (item) => {
+          const cardElement = createCard(item);
+          cardSection.addItem(cardElement);
+        },
+      },
+      ".cards__list"
+    );
+    cardSection.renderItems();
+
+    // Check if initial cards exist on the server
+    const existingCardNames = cardsData.map((card) => card.name);
+    const cardsToAdd = initialCards.filter(
+      (card) => !existingCardNames.includes(card.name)
+    );
+
+    // Only add new initial cards if they're not on the server
+    if (cardsToAdd.length > 0) {
+      return Promise.all(cardsToAdd.map((card) => api.addCard(card))).then(
+        () => {
+          console.log("New initial cards added to server.");
+          // Refresh cards after adding new ones
+          return api.getInitialCards();
+        }
+      );
+    } else {
+      console.log("All initial cards already exist on the server.");
+      return Promise.resolve(cardsData); // No need to update since no new cards were added
+    }
+  })
+  .then((updatedCardsData) => {
+    // If new cards were added, this will re-render with all cards
+    cardSection.clear();
+    cardSection.renderItems(updatedCardsData);
+  })
+  .catch((err) => {
+    console.error("Error in card operations:", err);
+  });
+// Create FormValidator instances
+const profileEditFormValidator = new FormValidator(
+  validationSettings,
+  profileEditForm
+);
+profileEditFormValidator.enableValidation();
+
+//form validator for add card form
+const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
+addCardFormValidator.enableValidation();
+
+//form validator for avatar edit form
+const avatarEditFormValidator = new FormValidator(
+  validationSettings,
+  avatarEditForm
+);
+avatarEditFormValidator.enableValidation();
+
+/* Functions */
+
+// Create a popup for delete confirmation
+const deleteCardPopup = new PopupWithConfirm(
+  "#delete-card-modal",
+  (cardInstance) => {
+    return api.deleteCard(cardInstance._id).then(() => {
+      cardInstance.deleteCard(); // Remove the card from the DOM after server confirmation
+    });
+  }
+);
+deleteCardPopup.setEventListeners();
+
+function handleCardDelete(cardInstance) {
+  deleteCardPopup.open(cardInstance); // Pass the card instance to the popup
+}
+// Handles opening the image preview modal
+const imagePopup = new PopupWithImage("#card-picture-modal");
+imagePopup.setEventListeners(); // Set up the event listeners from the parent class
+
+function handleImageClick(name, link) {
+  imagePopup.open({ name, link });
 }
 
-//
+// New PopupWithForm instances (userinfo integration change step 3)
+const editProfilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
+  // NEW CODE: Change button text to "Saving..."
+  const submitButton = editProfilePopup.submitButton;
+  const originalButtonText = submitButton.textContent;
+  submitButton.textContent = "Saving...";
 
-// Event Listeners
+  return api
+    .setUserInfo({
+      name: data.title,
+      about: data.description,
+    })
+    .then((updatedUserData) => {
+      userInfo.setUserInfo({
+        name: updatedUserData.name,
+        job: updatedUserData.about,
+      });
+    })
+    .catch((err) => {
+      console.error("Failed to update user info:", err);
+    })
+    .finally(() => {
+      submitButton.textContent = originalButtonText;
+    });
+});
+//end
 
-addNewCardButton.addEventListener("click", () => addCardPopup.open());
-editProfilePopup.setEventListeners();
-addCardPopup.setEventListeners();
-imagePopup.setEventListeners();
+//avatar edit popup step (8)
+const avatarEditPopup = new PopupWithForm("#avatar-edit-modal", (data) => {
+  const submitButton = avatarEditPopup.submitButton;
+  const originalButtonText = submitButton.textContent;
+  submitButton.textContent = "Saving...";
 
-profileEditBtn.addEventListener("click", () => {
-  const currentUserInfo = userInfo.getUserInfo();
-  nameInput.value = currentUserInfo.name;
-  descriptionInput.value = currentUserInfo.description;
-  editProfilePopup.open();
+  const avatarData = {
+    avatar: data["avatar-url"],
+  };
+
+  return api
+    .setUserAvatar(avatarData) // Return the promise chain
+    .then((updatedUserData) => {
+      console.log("Avatar update data:", updatedUserData); // Debug log
+      userInfo.setAvatar(updatedUserData.avatar);
+    })
+    .then(() => {
+      avatarEditPopup.close();
+      avatarEditFormValidator.disableButton();
+    })
+    .catch((err) => {
+      console.error("Failed to update avatar:", err);
+      throw err; // Re-throw the error so PopupWithForm can catch it
+    })
+    .finally(() => {
+      submitButton.textContent = originalButtonText;
+    });
+});
+avatarEditPopup.setEventListeners();
+// new addcard server integration (step 4)
+const addCardPopup = new PopupWithForm("#add-card-modal", (data) => {
+  const submitButton = addCardPopup.submitButton;
+  const originalButtonText = submitButton.textContent;
+  submitButton.textContent = "Saving...";
+
+  return api
+    .addCard({
+      name: data.title,
+      link: data.description,
+    })
+    .then((newCardData) => {
+      const newCard = createCard(newCardData);
+      cardSection.addItem(newCard);
+    })
+    .then(() => {
+      addCardPopup.close();
+      addCardFormValidator.disableButton();
+    })
+    .catch((err) => {
+      console.error("Failed to add new card:", err);
+    })
+    .finally(() => {
+      submitButton.textContent = originalButtonText;
+    });
 });
 
-// Validation //
+editProfilePopup.setEventListeners();
+addCardPopup.setEventListeners();
 
-const editFormValidator = new FormValidator(
-  validationSettings,
-  editFormElement
-);
+// Function to create a new card
+function createCard(cardData) {
+  //new: logging cardData to see what's passed through
+  console.log("Creating card with data:", cardData);
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleImageClick,
+    handleCardDelete
+  );
+  card._api = api; //new code
+  const cardElement = card.generateCard();
+  return cardElement; // Return the card element
+}
 
-const addFormValidator = new FormValidator(validationSettings, addFormElement);
+/* Event Listeners */
 
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
+//start: new userinfo.js integration
+profileEditBtn.addEventListener("click", () => {
+  const userData = userInfo.getUserInfo(); // Get current user data
+  profileTitleInput.value = userData.name;
+  profileDescriptionInput.value = userData.job;
+  profileEditFormValidator.resetValidation(); // Reset validation state
+  editProfilePopup.open(); // Open the edit profile popup
+});
+//end
 
-cardList.renderItems();
+addNewCardButton.addEventListener("click", () => {
+  addCardPopup.open(); // Open the add card popup
+});
+//event listener for avatar edit button
+avatarEditBtn.addEventListener("click", () => {
+  avatarEditPopup.open();
+});
+
+//new code
+const userInfo = new UserInfo({
+  nameSelector: ".profile__title",
+  jobSelector: ".profile__description",
+  avatarSelector: ".profile__image",
+});
